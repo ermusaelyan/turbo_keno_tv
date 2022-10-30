@@ -8,7 +8,7 @@ import History from '../History/History';
 
 const Game = () => {
   return (
-    <div className={s.game}>
+    <section className={s.game}>
       <div className={s.game__bet}>
         <BetBoard />
         <OtherTypes />
@@ -18,7 +18,7 @@ const Game = () => {
         <Coefficient />
         <History />
       </div>
-    </div>
+    </section>
   );
 };
 

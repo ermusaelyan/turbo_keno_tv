@@ -2,14 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import './assets/styles/style.scss';
-import Header from './components/Header/Header';
-import Game from './components/Game/Game';
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Header />
-    <Game />
+    <App />
   </React.StrictMode>,
 );
 
