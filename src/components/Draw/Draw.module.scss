@@ -1,0 +1,100 @@
+@import './../../assets/styles/toRem';
+
+.draw {
+  width: 100%;
+}
+
+.draw__header {
+  width: 100%;
+}
+
+.draw__next {
+  margin-bottom: rem(12px);
+  font-size: rem(36px);
+  line-height: rem(36px);
+  font-weight: 700;
+  color: var(--color-title);
+  text-align: center;
+}
+
+.draw__current {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.draw__currentName {
+  font-size: rem(28px);
+  line-height: rem(28px);
+  font-weight: 700;
+  color: var(--color-border);
+}
+
+.draw__currentID {
+  margin-right: rem(42px);
+  font-size: rem(28px);
+  line-height: rem(28px);
+  font-weight: 700;
+  color: var(--color-text5);
+}
+
+.draw__load {
+  width: 48.86%;
+  height: rem(14px);
+  border-radius: rem(7px);
+  overflow: hidden;
+}
+
+.draw__body {
+  margin: rem(11px) 0 rem(14px);
+  width: 100%;
+}
+
+.draw__list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.draw__item {
+  margin: 0 rem(19px) rem(16px) 0;
+  width: calc(100% / 10 - rem(171px) / 10);
+  font-size: rem(37px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+
+  &:nth-child(10n + 10) {
+    margin-right: 0;
+  }
+
+  &:nth-last-child(-n + 10) {
+    margin-bottom: 0;
+  }
+}
+
+.draw__footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.draw__temp {
+  width: 46.67%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
