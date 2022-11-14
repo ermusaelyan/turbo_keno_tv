@@ -7,6 +7,19 @@ import axios from 'axios';
 
 const Draw = () => {
   const [drawNums, setDrawNums] = useState([]);
+
+  const func = item => {
+    setDrawNums(prevState => [...prevState, item]);
+  };
+
+  const interval = setInterval(func, 1000);
+
+  const drawAnimatedNUms = nums => {
+    nums.forEach(item => {
+      interval(prevSta);
+    });
+  };
+
   useEffect(() => {
     axios
       .get(`http://oliver.energaming.systems:20034/api/v1/get-draw-results`, {
@@ -16,7 +29,7 @@ const Draw = () => {
           page: 0,
         },
       })
-      .then(res => setDrawNums(res.data.data.lastRaces[0].r.split(',')));
+      .then(res => drawAnimatedNUms(res.data.data.lastRaces[0].r.split(',')));
   }, []);
   return (
     <div className={s.draw}>
@@ -32,13 +45,13 @@ const Draw = () => {
       </div>
       <div className={s.draw__body}>
         <ul className={s.draw__list}>
-          {drawNums.map(num => {
-            return (
-              <li key={num} className={s.draw__item}>
-                <DrawNum show={false}>{num}</DrawNum>
-              </li>
-            );
-          })}
+          {/*{drawNums.map(num => {*/}
+          {/*  return (*/}
+          {/*    <li key={num} className={s.draw__item}>*/}
+          {/*      <DrawNum show={true}>{num}</DrawNum>*/}
+          {/*    </li>*/}
+          {/*  );*/}
+          {/*})}*/}
           {/*{Array.from(Array(20), (_, i) => (*/}
           {/*  <li key={i} className={s.draw__item}>*/}
           {/*    <DrawNum show={true}>{i + 1}</DrawNum>*/}

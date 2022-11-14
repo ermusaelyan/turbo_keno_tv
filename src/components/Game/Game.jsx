@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Game.module.scss';
 import BetBoard from '../BetBoard/BetBoard';
 import OtherTypes from '../OtherTypes/OtherTypes';
-import Draw from '../Draw/Draw';
+// import Draw from '../Draw/Draw';
 import Coefficient from '../Coefficient/Coefficient';
 import History from '../History/History';
 
@@ -14,7 +14,7 @@ const Game = () => {
         <OtherTypes />
       </div>
       <div className={s.game__process}>
-        <Draw />
+        {/*<Draw />*/}
         <Coefficient />
         <History />
       </div>
