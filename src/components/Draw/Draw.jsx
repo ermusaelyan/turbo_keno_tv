@@ -3,34 +3,33 @@ import s from './Draw.module.scss';
 import Loader from '../Loader/Loader';
 import DrawNum from '../DrawNum/DrawNum';
 import BetTemp from '../BetTemp/BetTemp';
-import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { delayForOneNumber } from '../../helpers/constant';
 
 const Draw = () => {
   const [drawNums, setDrawNums] = useState([]);
+  const nums = useSelector(state => state.history.drawNums);
 
-  const func = item => {
-    setDrawNums(prevState => [...prevState, item]);
-  };
-
-  const interval = setInterval(func, 1000);
-
-  const drawAnimatedNUms = nums => {
-    nums.forEach(item => {
-      interval(prevSta);
+  const wait = async t => {
+    return new Promise(res => {
+      setTimeout(() => {
+        res(true);
+      }, t);
     });
   };
 
+  const main = async () => {
+    for (let i = 0; i < nums.length; i++) {
+      await wait(delayForOneNumber);
+      setDrawNums(prevState => [...prevState, nums[i]]);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get(`http://oliver.energaming.systems:20034/api/v1/get-draw-results`, {
-        params: {
-          token: 'test-frontend-token',
-          duration: 1,
-          page: 0,
-        },
-      })
-      .then(res => drawAnimatedNUms(res.data.data.lastRaces[0].r.split(',')));
-  }, []);
+    setDrawNums([]);
+    main();
+  }, [nums]);
+
   return (
     <div className={s.draw}>
       <div className={s.draw__header}>
@@ -45,18 +44,13 @@ const Draw = () => {
       </div>
       <div className={s.draw__body}>
         <ul className={s.draw__list}>
-          {/*{drawNums.map(num => {*/}
-          {/*  return (*/}
-          {/*    <li key={num} className={s.draw__item}>*/}
-          {/*      <DrawNum show={true}>{num}</DrawNum>*/}
-          {/*    </li>*/}
-          {/*  );*/}
-          {/*})}*/}
-          {/*{Array.from(Array(20), (_, i) => (*/}
-          {/*  <li key={i} className={s.draw__item}>*/}
-          {/*    <DrawNum show={true}>{i + 1}</DrawNum>*/}
-          {/*  </li>*/}
-          {/*))}*/}
+          {drawNums.map(num => {
+            return (
+              <li key={num} className={s.draw__item}>
+                <DrawNum show={true}>{num}</DrawNum>
+              </li>
+            );
+          })}
         </ul>
       </div>
       <div className={s.draw__footer}>

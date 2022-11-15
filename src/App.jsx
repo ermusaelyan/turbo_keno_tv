@@ -7,9 +7,17 @@ import { getHistory } from './Redux/reducers/historySlice';
 
 const App = () => {
   const dispatch = useDispatch();
+
+  const loop = () => {
+    setInterval(() => {
+      dispatch(getHistory());
+    }, 40000);
+  };
+
   useEffect(() => {
-    dispatch(getHistory());
+    loop();
   }, []);
+
   return (
     <div className={s.app}>
       <Header />

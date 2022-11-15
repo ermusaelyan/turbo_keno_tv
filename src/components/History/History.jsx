@@ -1,21 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import s from './History.module.scss';
-import { useEffect } from 'react';
-import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const History = () => {
-  const [history, setHistory] = useState([]);
-  useEffect(() => {
-    axios
-      .get(`http://oliver.energaming.systems:20034/api/v1/get-draw-results`, {
-        params: {
-          token: 'test-frontend-token',
-          duration: 1,
-          page: 0,
-        },
-      })
-      .then(res => setHistory(res.data.data.lastRaces.slice(1, 4)));
-  }, []);
+  const history = useSelector(state => state.history.history);
   return (
     <div className={s.history}>
       <div className={s.history__title}>Draw History</div>

@@ -49,6 +49,7 @@
 .draw__body {
   margin: rem(11px) 0 rem(14px);
   width: 100%;
+  height: rem(183px);
 }
 
 .draw__list {
@@ -57,7 +58,7 @@
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
 }
 

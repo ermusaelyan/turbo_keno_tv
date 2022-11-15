@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
+  drawNums: [],
   history: [],
 };
 
@@ -25,8 +26,8 @@ export const historySlice = createSlice({
   extraReducers: {
     [getHistory.pending]: () => console.log('pending'),
     [getHistory.fulfilled]: (state, { payload }) => {
-      console.log(payload);
-      state.history = payload;
+      state.drawNums = payload.data.data.lastRaces[0].r.split(',');
+      state.history = payload.data.data.lastRaces.slice(1, 4);
     },
     [getHistory.rejected]: () => console.log('rejected'),
   },
