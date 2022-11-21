@@ -1,9 +1,10 @@
 import React from 'react';
 import s from './History.module.scss';
 import { useSelector } from 'react-redux';
+import { selectHistory } from '../../Redux/reducers/historySlice';
 
 const History = () => {
-  const history = useSelector(state => state.history.history);
+  const history = useSelector(selectHistory);
   return (
     <div className={s.history}>
       <div className={s.history__title}>Draw History</div>

@@ -1,7 +1,13 @@
 import React from 'react';
 import s from './Header.module.scss';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+  const maxBet = useSelector(state => state.limits.maxBet),
+    minBet = useSelector(state => state.limits.minBet),
+    maxWin = useSelector(state => state.limits.maxWin),
+    currency = useSelector(state => state.limits.currency);
+
   return (
     <header className={s.header}>
       <div className={s.headerJackpot}>
@@ -12,15 +18,18 @@ const Header = () => {
         </div>
       </div>
       <div className={s.headerWinner}>
-        Last Winner:<span>540 000 TZS</span>Arusha Marusha
+        Last Winner:<span>540 000 {currency}</span>Arusha Marusha
       </div>
       <div className={s.headerLimits}>
         <div className={s.headerLimits__details}>
           <div className={s.headerLimitsInfo}>
-            Bet Limits <span>Min-100 Max-150.000</span>
+            Bet Limits{' '}
+            <span>
+              Min-{minBet} Max-{maxBet}
+            </span>
           </div>
           <div className={s.headerLimitsInfo}>
-            Max Win: <span>1.000.000</span>
+            Max Win: <span>{maxWin}</span>
           </div>
         </div>
       </div>

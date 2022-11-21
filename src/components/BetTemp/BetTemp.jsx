@@ -2,7 +2,7 @@ import React from 'react';
 import s from './BetTemp.module.scss';
 import classNames from 'classnames';
 
-const BetTemp = ({ hot }) => {
+const BetTemp = ({ nums = [], hot }) => {
   return (
     <div className={s.betTemp}>
       <div className={classNames(s.betTemp__name, { [s.hot]: hot })}>
@@ -10,12 +10,13 @@ const BetTemp = ({ hot }) => {
       </div>
       <div className={s.betTemp__numbers}>
         <ul className={s.betTemp__list}>
-          <li className={s.betTemp__item}>1</li>
-          <li className={s.betTemp__item}>1</li>
-          <li className={s.betTemp__item}>1</li>
-          <li className={s.betTemp__item}>1</li>
-          <li className={s.betTemp__item}>1</li>
-          <li className={s.betTemp__item}>1</li>
+          {nums.map(num => {
+            return (
+              <li key={num} className={s.betTemp__item}>
+                {num}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>

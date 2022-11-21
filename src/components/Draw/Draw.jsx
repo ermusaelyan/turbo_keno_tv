@@ -5,10 +5,23 @@ import DrawNum from '../DrawNum/DrawNum';
 import BetTemp from '../BetTemp/BetTemp';
 import { useSelector } from 'react-redux';
 import { delayForOneNumber } from '../../helpers/constant';
+import {
+  selectCurrentDrawId,
+  selectDrawNums,
+  selectNextDrawId,
+} from '../../Redux/reducers/historySlice';
+import {
+  selectColdNums,
+  selectHotNums,
+} from '../../Redux/reducers/frequencySlice';
 
 const Draw = () => {
   const [drawNums, setDrawNums] = useState([]);
-  const nums = useSelector(state => state.history.drawNums);
+  const nums = useSelector(selectDrawNums);
+  const currentDrawId = useSelector(selectCurrentDrawId);
+  const nextDrawId = useSelector(selectNextDrawId);
+  const hotNums = useSelector(selectHotNums);
+  const coldNums = useSelector(selectColdNums);
 
   const wait = async t => {
     return new Promise(res => {
@@ -33,10 +46,10 @@ const Draw = () => {
   return (
     <div className={s.draw}>
       <div className={s.draw__header}>
-        <div className={s.draw__next}>NEXT DRAW: 54790 in 00:00</div>
+        <div className={s.draw__next}>NEXT DRAW: {nextDrawId} in 00:00</div>
         <div className={s.draw__current}>
           <div className={s.draw__currentName}>CURRENT DRAW PROCESS</div>
-          <div className={s.draw__currentID}>54789</div>
+          <div className={s.draw__currentID}>{currentDrawId}</div>
           <div className={s.draw__load}>
             <Loader percent={45} />
           </div>
@@ -55,10 +68,10 @@ const Draw = () => {
       </div>
       <div className={s.draw__footer}>
         <div className={s.draw__temp}>
-          <BetTemp hot />
+          <BetTemp nums={hotNums} hot />
         </div>
         <div className={s.draw__temp}>
-          <BetTemp />
+          <BetTemp nums={coldNums} />
         </div>
         <></>
       </div>

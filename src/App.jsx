@@ -5,9 +5,16 @@ import Game from './components/Game/Game';
 import { useDispatch } from 'react-redux';
 import { getHistory } from './Redux/reducers/historySlice';
 import axios from 'axios';
+import { getMarkets } from './Redux/reducers/marketSlice';
+import { getLimits } from './Redux/reducers/limitsSlice';
+import { getFrequency } from './Redux/reducers/frequencySlice';
 
 const App = () => {
   const dispatch = useDispatch();
+  dispatch(getHistory());
+  dispatch(getMarkets());
+  dispatch(getLimits());
+  dispatch(getFrequency());
 
   const loop = () => {
     setInterval(() => {
@@ -21,7 +28,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get(`http://oliver.energaming.systems:20034/api/v1/get-draw-results`, {
+      .get(`http://oliver.energaming.systems:20035/api/v1/get-draw-results`, {
         params: {
           token: 'test-frontend-token',
           duration: 3,
@@ -36,7 +43,7 @@ const App = () => {
   useEffect(() => {
     axios
       .get(
-        `http://oliver.energaming.systems:20034/api/v1/get-seconds-till-draw`,
+        `http://oliver.energaming.systems:20035/api/v1/get-seconds-till-draw`,
         {
           params: {
             token: 'test-frontend-token',
@@ -52,7 +59,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get(`http://oliver.energaming.systems:20034/api/v1/get-game-versions`, {
+      .get(`http://oliver.energaming.systems:20035/api/v1/get-game-versions`, {
         params: {
           token: 'test-frontend-token',
           duration: 3,
@@ -66,7 +73,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get(`http://oliver.energaming.systems:20034/api/v1/get-draw-history`, {
+      .get(`http://oliver.energaming.systems:20035/api/v1/get-draw-history`, {
         params: {
           token: 'test-frontend-token',
           duration: 3,
@@ -75,6 +82,34 @@ const App = () => {
       })
       .then(res => {
         console.log('Draw History:', res);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`http://oliver.energaming.systems:20035/api/v1/get-generic-info`, {
+        params: {
+          token: 'test-frontend-token',
+          duration: 3,
+          page: 0,
+        },
+      })
+      .then(res => {
+        console.log('Generic Info:', res);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`http://oliver.energaming.systems:20035/api/v1/markets/get`, {
+        params: {
+          token: 'test-frontend-token',
+          duration: 3,
+          page: 0,
+        },
+      })
+      .then(res => {
+        console.log('Other Types:', res);
       });
   }, []);
 
