@@ -29,7 +29,6 @@ export const frequencySlice = createSlice({
   extraReducers: {
     [getFrequency.pending]: () => console.log('Markets Pending'),
     [getFrequency.fulfilled]: (state, { payload }) => {
-      console.log('>>>', payload.data.data.ballFrequency);
       state.hotNums = payload.data.data.ballFrequency['100'].hotBalls.map(
         el => {
           return el[0];
