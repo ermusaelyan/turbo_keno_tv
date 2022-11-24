@@ -42,6 +42,7 @@
 }
 
 .headerJackpot__currency {
+  visibility: hidden;
   margin-bottom: rem(16px);
   font-size: rem(16px);
   font-weight: 700;
@@ -50,6 +51,7 @@
 }
 
 .headerWinner {
+  //visibility: hidden;
   width: 38.55%;
   height: 100%;
   font-size: rem(28px);
