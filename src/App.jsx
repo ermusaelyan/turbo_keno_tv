@@ -19,7 +19,7 @@ const App = () => {
   const loop = () => {
     setInterval(() => {
       dispatch(getHistory());
-    }, 40000);
+    }, 60000);
   };
 
   useEffect(() => {
@@ -37,23 +37,6 @@ const App = () => {
       })
       .then(res => {
         console.log('Draw Results:', res);
-      });
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get(
-        `http://oliver.energaming.systems:20035/api/v1/get-seconds-till-draw`,
-        {
-          params: {
-            token: 'test-frontend-token',
-            duration: 3,
-            page: 0,
-          },
-        },
-      )
-      .then(res => {
-        console.log('Seconds Till Draw:', res);
       });
   }, []);
 

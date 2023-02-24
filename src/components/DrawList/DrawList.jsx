@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectDrawNums } from '../../Redux/reducers/historySlice';
 import { delayForOneNumber } from '../../helpers/constant';
@@ -6,6 +6,7 @@ import s from './DrawList.module.scss';
 import DrawNum from '../DrawNum/DrawNum';
 
 const DrawList = () => {
+  const waitRef = useRef(null);
   const [drawNums, setDrawNums] = useState([]);
   const nums = useSelector(selectDrawNums);
 
@@ -17,16 +18,28 @@ const DrawList = () => {
     });
   };
 
-  const main = async () => {
-    for (let i = 0; i < nums.length; i++) {
-      await wait(delayForOneNumber);
-      setDrawNums(prevState => [...prevState, nums[i]]);
+  const main = async (nums, setDrawNums) => {
+    let count = nums.length;
+    const time = new Date().getTime();
+    waitRef.current = time;
+    setDrawNums(() => []);
+    if (count > 0) {
+      while (count >= 0) {
+        if (time !== waitRef.current) {
+          break;
+        }
+        const c = count;
+        if (nums[nums.length - c]) {
+          setDrawNums(prevState => [...prevState, nums[nums.length - c]]);
+          count--;
+        }
+        await wait(delayForOneNumber);
+      }
     }
   };
 
   useEffect(() => {
-    setDrawNums([]);
-    main();
+    main(nums, setDrawNums);
   }, [nums]);
 
   return (
@@ -42,4 +55,4 @@ const DrawList = () => {
   );
 };
 
-export default DrawList;
+export default memo(DrawList);

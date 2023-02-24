@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import s from './Draw.module.scss';
 import Loader from '../Loader/Loader';
 import BetTemp from '../BetTemp/BetTemp';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   selectCurrentDrawId,
   selectNextDrawId,
@@ -12,22 +12,35 @@ import {
   selectHotNums,
 } from '../../Redux/reducers/frequencySlice';
 import DrawList from '../DrawList/DrawList';
+import Timer from '../Timer/Timer';
+import { getTimer, selectTimer } from '../../Redux/reducers/timerSlice';
 
 const Draw = () => {
   const currentDrawId = useSelector(selectCurrentDrawId);
   const nextDrawId = useSelector(selectNextDrawId);
   const hotNums = useSelector(selectHotNums);
   const coldNums = useSelector(selectColdNums);
+  const dispatch = useDispatch();
+  const expiryTimestamp = useSelector(selectTimer);
+
+  useEffect(() => {
+    dispatch(getTimer());
+  }, []);
 
   return (
     <div className={s.draw}>
       <div className={s.draw__header}>
-        <div className={s.draw__next}>NEXT DRAW: {nextDrawId} in 00:00</div>
+        <div className={s.draw__next}>
+          NEXT DRAW: {nextDrawId} in <Timer expiryTimestamp={expiryTimestamp} />
+        </div>
         <div className={s.draw__current}>
           <div className={s.draw__currentName}>CURRENT DRAW PROCESS</div>
           <div className={s.draw__currentID}>{currentDrawId}</div>
           <div className={s.draw__load}>
-            <Loader percent={45} />
+            <Loader
+              expiryTimestamp={expiryTimestamp}
+              initPercentage={(expiryTimestamp / 180) * 100}
+            />
           </div>
         </div>
       </div>
